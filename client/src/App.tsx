@@ -1,17 +1,29 @@
 import { useState } from 'react'
 import AllDecks from './components/allDecks/AllDecks'
 import './App.css'
+import ShowDeck from './components/showDeck/ShowDeck'
+import {ViewType} from './types/appViewTypes'
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  const [viewToShow, setViewToShow] = useState<keyof ViewType>('allDecks')
+
+  const views = {
+    allDecks: <AllDecks 
+                setViewToShow={setViewToShow}
+              />,
+    deck: <ShowDeck 
+                setViewToShow={setViewToShow}
+              />
+  }
+
+  const renderView = (views: ViewType, viewToShow: keyof ViewType) => {
+    return views[viewToShow]
+  }
 
   return (
     <div className="App">
-      <h1>My Card Decks</h1>
-      <div>
-        <AllDecks />
-
-      </div>
+      {renderView(views, viewToShow)}
     </div>
   )
 }
