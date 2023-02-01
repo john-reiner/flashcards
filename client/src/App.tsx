@@ -1,20 +1,16 @@
 import { useState } from 'react'
-import AllDecks from './components/allDecks/AllDecks'
-import './App.css'
-import ShowDeck from './components/showDeck/ShowDeck'
+import { MantineProvider,
+  useMantineTheme,
+} from '@mantine/core';
+import Main from './components/app/Main';
 import {ViewType} from './types/appViewTypes'
 
 function App() {
 
-  const [viewToShow, setViewToShow] = useState<keyof ViewType>('allDecks')
+  const [viewToShow, setViewToShow] = useState<keyof ViewType>('main')
 
   const views = {
-    allDecks: <AllDecks 
-                setViewToShow={setViewToShow}
-              />,
-    deck: <ShowDeck 
-                setViewToShow={setViewToShow}
-              />
+    main: <Main setViewToShow={setViewToShow}/>
   }
 
   const renderView = (views: ViewType, viewToShow: keyof ViewType) => {
@@ -22,9 +18,11 @@ function App() {
   }
 
   return (
-    <div className="App">
-      {renderView(views, viewToShow)}
-    </div>
+
+      <MantineProvider theme={{ colorScheme: 'dark' }} withGlobalStyles withNormalizeCSS>
+        {renderView(views, viewToShow)}
+      </MantineProvider>
+
   )
 }
 

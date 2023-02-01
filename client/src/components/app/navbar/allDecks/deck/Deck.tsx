@@ -1,6 +1,6 @@
 import React from 'react'
-import {ViewType} from '../../../types/appViewTypes'
-
+import {ViewType} from '../../../../../types/appViewTypes'
+import { Stack, Button } from '@mantine/core';
 type Props = {
     name: string
     setViewToShow: React.Dispatch<React.SetStateAction<keyof ViewType>>
@@ -16,11 +16,6 @@ export default function Deck({
     }
 
     return (
-        <div 
-            style={{border: "solid green 1px", margin: "1em"}}
-            onClick={handleClick}
-        >
-            <h4>{name}</h4>
-        </div>
+        <Button variant="subtle" onClick={handleClick}>  {name}</Button>
     )
 }
