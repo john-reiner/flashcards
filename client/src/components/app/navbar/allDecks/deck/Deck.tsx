@@ -1,21 +1,22 @@
 import React from 'react'
 import {ViewType} from '../../../../../types/appViewTypes'
-import { Stack, Button } from '@mantine/core';
+import { Button } from '@mantine/core';
 type Props = {
-    name: string
+    title: string
     setViewToShow: React.Dispatch<React.SetStateAction<keyof ViewType>>
 }
 
 export default function Deck({
-    name,
+    title,
     setViewToShow
 }: Props) {
 
     const handleClick = () => {
-        setViewToShow("deck")
+        // setViewToShow("deck")
+        console.log("clicked")
     }
 
     return (
-        <Button variant="subtle" onClick={handleClick}>  {name}</Button>
+        <Button variant="subtle" onClick={handleClick}>{title}</Button>
     )
 }

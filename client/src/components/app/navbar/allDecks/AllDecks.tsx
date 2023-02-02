@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Deck from './deck/Deck'
-import {ViewType} from '../../../../types/appViewTypes'
-import { Stack, Button } from '@mantine/core';
+import {ViewType, DeckType} from '../../../../types/appViewTypes'
+import { Stack } from '@mantine/core';
 
 type Props = {
     setViewToShow: React.Dispatch<React.SetStateAction<keyof ViewType>>
@@ -9,18 +9,22 @@ type Props = {
 
 export default function AllDecks({setViewToShow}: Props) {
 
-    const decks = [
-        {
-            name: "Fake Deck 1"            
-        },
-        {
-            name: "Fake Deck 2"            
-        }
-    ]
+    const [decks, setDecks] = useState<DeckType[]>([])
+
+    useEffect(() => {
+        fetchDecks()
+    }, [])
+    
+
+    const fetchDecks = () => {
+        fetch("http://localhost:3000/decks")
+        .then((response) => response.json())
+        .then((decks) => setDecks(decks))
+    }
 
     const renderDecks = () => {
         return decks.map(deck => {
-            return <Deck setViewToShow={setViewToShow} name={deck.name}/>
+            return <Deck setViewToShow={setViewToShow} title={deck.title}/>
         })
     }
 
@@ -28,8 +32,5 @@ export default function AllDecks({setViewToShow}: Props) {
         <Stack>
             {renderDecks()}
         </Stack>
-        // <div style={{border: "solid red 1px", padding: "1em"}}>
-        //     <h2>All Decks</h2>
-        // </div>
     )
 }

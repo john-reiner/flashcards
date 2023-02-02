@@ -3,3 +3,7 @@ export type ViewType = {
     // deck: JSX.Element;
     main: JSX.Element;
 }
+
+export type DeckType = {
+    title: string
+}
