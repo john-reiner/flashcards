@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import Deck from './deck/Deck'
+import DeckLink from './deck/DeckLink'
 import {ViewType, DeckType} from '../../../../types/appViewTypes'
 import { Stack } from '@mantine/core';
 
 type Props = {
     setViewToShow: React.Dispatch<React.SetStateAction<keyof ViewType>>
+    setDeck_id: React.Dispatch<React.SetStateAction<number>>
 }
 
-export default function AllDecks({setViewToShow}: Props) {
+export default function AllDecks({setViewToShow, setDeck_id}: Props) {
 
     const [decks, setDecks] = useState<DeckType[]>([])
 
@@ -24,7 +25,12 @@ export default function AllDecks({setViewToShow}: Props) {
 
     const renderDecks = () => {
         return decks.map(deck => {
-            return <Deck setViewToShow={setViewToShow} title={deck.title}/>
+            return <DeckLink 
+                        setViewToShow={setViewToShow} 
+                        title={deck.title} 
+                        deck_id={deck.id}
+                        setDeck_id={setDeck_id}
+                    />
         })
     }
 

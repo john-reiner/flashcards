@@ -6,4 +6,5 @@ export type ViewType = {
 
 export type DeckType = {
     title: string
+    id: number
 }

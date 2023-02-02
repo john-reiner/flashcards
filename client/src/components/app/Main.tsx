@@ -12,7 +12,7 @@ import { AppShell,
 
 import { ViewType } from '../../types/appViewTypes';
 import AllDecks from './navbar/allDecks/AllDecks';
-import Show from './show/showDeck/Show';
+import ShowDeck from './show/showDeck/ShowDeck';
 
 type Props = {
     setViewToShow: React.Dispatch<React.SetStateAction<keyof ViewType>>
@@ -21,8 +21,13 @@ type Props = {
 export default function Main({
     setViewToShow
 }: Props) {
-    const theme = useMantineTheme();
+
+    const [deck_id, setDeck_id] = useState(0)
     const [opened, setOpened] = useState(false);
+
+    const theme = useMantineTheme();
+
+    console.log(deck_id)
     return (
             <AppShell
             styles={{
@@ -36,6 +41,7 @@ export default function Main({
                 <Navbar p="md" hiddenBreakpoint="sm" hidden={!opened} width={{ sm: 200, lg: 300 }}>
                 <AllDecks 
                     setViewToShow={setViewToShow}
+                    setDeck_id={setDeck_id}
                 />
                 </Navbar>
             }
@@ -57,7 +63,7 @@ export default function Main({
                 </Header>
             }
             >
-                <Show />
+                {deck_id === 0 ? <h2>Select a Deck</h2> : <ShowDeck deck_id={deck_id} />}
             </AppShell>
     )
 }
